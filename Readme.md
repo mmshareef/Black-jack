@@ -1,5 +1,11 @@
 # Milestone-4: Card game
 
+Team Member:
+
+1 . John Suresh
+2 . Nihal Mogudampally
+3 . Mohd Mudassir Shareef
+
 ## Learning Competencies
 By the end of this milestone ensure that you
  - [ ] write tests for any program you are ever going to build
