@@ -1,0 +1,26 @@
+Black Jack Game Algorithm:
+
+-->  Can played between 2 players to n players.
+
+-->  Shuffle the deck.
+
+-->  Each player will have two cards from the deck.
+
+-->  Essentially, players are dealt a starting hand of 2 cards with the hopes 
+     of getting to the magical number of 21, or to get as close to 21 as possible.
+
+-->  If a player gets 21 on his initial hand, it is called a "blackjack" or a "natural".
+
+-->  The player wins, unless the house reaches blackjack as well.
+
+--> The other ways to win are to hold a higher sum of cards at the end of the play
+    than the house, or to have the house go over 21.
+
+-->  It will have two options 'Hitme' and 'Stay'.
+
+-->  HitMe means to draw one card from the deck.
+
+--> Stay means no need to draw the card from the deck.
+
+--> While Player, drawn the card from deck. If the sum is more than 21 he has brusted out,
+    and the other player's whose sum of the card is more is the winner.
