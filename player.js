@@ -1,102 +1,105 @@
-window.onload = function() {
+window.onload = ()=>{
 
+    // Creating Object for BlackJackGame using player1,player2,Cards,Card-Values
     let blackjackGame = {
         'player1': { 'scoreSpan': '#your-blackjack-result', 'div': '#your-box', 'score': 0 },
         'player2': { 'scoreSpan': '#dealer-blackjack-result', 'div': '#dealer-box', 'score': 0 },
         'cards': ["2","3","4","5","6","7","8","9","10","K","J","Q","A"],
-        'cardMap': {"2":2,"3":3,"4":4,"5":5,"6":6,"7":7,"8":8,"9":9,"10":10,"K":10,"Q":10,"J":10,"A":[1,11]},
+        'cardValue': {"2":2,"3":3,"4":4,"5":5,"6":6,"7":7,"8":8,"9":9,"10":10,"K":10,"Q":10,"J":10,"A":[1,11]},
         'win':0,
         'loss':0,
         'draw':0,
-        'isStand' : false,
-        'turnsOver' : false,
-    };
+        'turnsOver' : true,
+        'player_1' : true,
+        'player_2' : true,
+    };  
 
+    // Getting Player1 and Player2 Details
     const P1 = blackjackGame.player1;
     const P2 = blackjackGame.player2;
 
-    var hit = document.querySelector('#blackjack-hit-button');
-    hit.addEventListener('click', blackjackHit);
+    // Creating EventListener for Player1, Player2, Deal and Reset Button
+    var player1 = document.querySelector('#blackjack-hit-button');
+    player1.addEventListener('click', blackJackPlayer1);
+
+    var player2 = document.querySelector('#blackjack-stand-button');
+    player2.addEventListener('click',blackJackPlayer2);
 
     var deal = document.querySelector('#blackjack-deal-button');
     deal.addEventListener('click', blackjackDeal);
 
-    var stand = document.querySelector('#blackjack-stand-button');
-    stand.addEventListener('click',dealerLogic);
-
     var refresh = document.querySelector('#blackjack-reset-button');
     refresh.addEventListener('click',reset);
 
-
-    function blackjackHit() {
-        if(blackjackGame.isStand === false){
-        let card = randomCard();
-      showCard(card,P1);
-      updateScore(card,P1);
-      showScore(P1)
-
-    } 
-}
-    
-    function randomCard(){
-        let randomIndex = Math.floor(Math.random()*13);
-        return blackjackGame.cards[randomIndex];
+    // Click Event for Player1
+function blackJackPlayer1(){
+         if(blackjackGame.player_1 === true){
+         let card = randomCard();
+         showCard(card,P1);
+         updateScore(card,P1);
+         showScore(P1);
     }
- 
-    function showCard(card,activePlayer){
-        if(activePlayer.score <= 21){
-    let cardImage = document.createElement('img');
-    cardImage.src = `Images/${card}.png`
-    document.querySelector(activePlayer.div).appendChild(cardImage);
+}
+
+    // Click Event for Player2
+function blackJackPlayer2(){
+    if(blackjackGame.player_2 === true){
+         blackjackGame.player_1 = false;
+         let card = randomCard();
+         showCard(card,P2);
+         updateScore(card,P2);
+         showScore(P2);
 }
 }
 
+    // Click Event for Deal
 function blackjackDeal(){
-    if(blackjackGame.turnsOver === true){
-        blackjackGame.isStand = false;
-        let winner = computeWinner();
-        showResult(winner);
-    }
-}
-
-function updateScore(card,activePlayer){
-    if(card === 'A'){
-        if(activePlayer.score + blackjackGame.cardMap[card][1] <= 21){
-    activePlayer.score += blackjackGame.cardMap[card][1];
-        }else{
-    activePlayer.score += blackjackGame.cardMap[card][0];
-        }
-    }else{
-    activePlayer.score += blackjackGame.cardMap[card];
-    }
-}
-
-
-function showScore(activePlayer){
-    if(activePlayer.score > 21){
-document.querySelector(activePlayer.scoreSpan).textContent = "BUSTED!";
-document.querySelector(activePlayer.scoreSpan).style.color = 'red';
-    }else{
-document.querySelector(activePlayer.scoreSpan).textContent = activePlayer.score;
-}
-}
-
-function dealerLogic(){
-    blackjackGame.isStand = true;
-
+    if(blackjackGame.turnsOver === true && blackjackGame.player_1 === false){
+    blackjackGame.turnsOver === false;
+    blackjackGame.player_2 = false;
+    let winner = computeWinner();
+    showResult(winner);
+}}
     
-    let card = randomCard();
-    showCard(card,P2);
-    updateScore(card,P2);
-    showScore(P2);
-    blackjackGame.turnsOver = true;
-    // if(P2.score > 15){
-        
-        // let winner = computeWinner();
-        // showResult(winner);
-    // }
+   // Function for Picking up RandomCard
+function randomCard(){
+         let randomIndex = Math.floor(Math.random()*13);
+         return blackjackGame.cards[randomIndex];
 }
 
+   // Fuction for poping up the card in Player1 or Player2 block 
+function showCard(card,activePlayer){
+         if(activePlayer.score <= 21){
+         let cardImage = document.createElement('img');
+         cardImage.src = `Images/${card}.png`
+         document.querySelector(activePlayer.div).appendChild(cardImage);
+    }
+}
+
+   // Function for updating the Score
+function updateScore(card,activePlayer){
+         if(card === 'A'){
+             if(activePlayer.score + blackjackGame.cardValue[card][1] <= 21){
+                activePlayer.score += blackjackGame.cardValue[card][1];
+        }else{
+                activePlayer.score += blackjackGame.cardValue[card][0];
+             }
+        }else {
+                activePlayer.score += blackjackGame.cardValue[card];
+              }
+}
+
+   // Function for to display the Score
+function showScore(activePlayer){
+         if(activePlayer.score > 21){
+         document.querySelector(activePlayer.scoreSpan).textContent = "BUSTED!";
+         document.querySelector(activePlayer.scoreSpan).style.color = 'red';
+         }else{
+         document.querySelector(activePlayer.scoreSpan).textContent = activePlayer.score;
+    }
+}
+
+   // Function to Compute the Winner
 function computeWinner(){
     let winner;
 
@@ -116,11 +119,10 @@ function computeWinner(){
     }else if(P1.score > 21 && P2.score > 21){
         blackjackGame.draw++;
     }
-
-    console.log(blackjackGame);
     return winner;
 }
 
+   // Function to Show the Results
 function showResult(winner){
     let message,messageColor;
 
@@ -145,6 +147,7 @@ function showResult(winner){
 }
 }
 
+   // Function for Reseting
 function reset(){
     let player1Image = document.querySelector('#your-box').querySelectorAll('img');
     let player2Image = document.querySelector('#dealer-box').querySelectorAll('img');
@@ -169,6 +172,9 @@ document.querySelector("#dealer-blackjack-result").style.color = "white";
 document.querySelector('#blackjack-result').textContent = `Let's Play`;
 document.querySelector('#blackjack-result').style.color = "black";
 blackjackGame.turnsOver = true;
+blackjackGame.player_2 = true;
+blackjackGame.player_1 = true;
 
 }
+
 }

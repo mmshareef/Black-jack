@@ -4,6 +4,7 @@
     text-align: center;
     border: 1px solid black;
 }
+
 .flex-blackjack-row-1,.flex-blackjack-row-2,.flex-blackjack-row-3{
     display:flex;
     border: 1px solid black;
@@ -12,14 +13,25 @@
     flex-direction: row;
     justify-content: space-around;
 }
+
 .flex-blackjack-row-1,.flex-blackjack-row-2,.flex-blackjack-row-3{
-    background-image: url(https://i.etsystatic.com/7086259/r/il/c82710/817419327/il_794xN.817419327_dx80.jpg);
+    /* background-image: url(https://i.etsystatic.com/7086259/r/il/c82710/817419327/il_794xN.817419327_dx80.jpg); */
     color: #fff;
     height: 100%; 
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+.flex-blackjack-row-1{
+    background-image: url(./Images/bg1.jpg);
+}
+
+.flex-blackjack-row-2,.flex-blackjack-row-3{
+background-image: url(./Images/bg2.png);
+}
+
+
 .flex-blackjack-row-1 div{
 border: 1px solid black;
 padding: 10px;
@@ -27,18 +39,22 @@ height: 350px;
 text-align: center;
 flex: 1;
 }
+
 .flex-blackjack-row-2 button{
 border: 1px solid black;
 padding: 10px;
 }
+
 .flex-blackjack-row-2 div{
 border: 1px solid black;
 padding: 10px;
 }
+
 table,th,td{
 padding: 5px;
 border: 1px solid black;
 }
+
 img{
     margin: 10px;
 }
